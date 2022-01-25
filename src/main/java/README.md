@@ -1,15 +1,15 @@
-#Registration tool
+*Registration tool
   Regitration tool is Java project designed for add/change client registration data and personal data.
   This is one of my homework, while i`m taking Java cources at itvdn.com
 
-##Application features
+**Application features
 - [Add client registration data](#add-client-registration-data)
 - [Change password](#change-password)
 - [Change personal data](#change-personal-data)
 - [Return personal data](#return-personal-data)
 - [Logging](#logging)
 
-###Add client registration data
+***Add client registration data
 Project checks /Input folder in project folder. If client data that already in the database it return exception.
 In another case if all data is valid(only favourite colour field is optional), it add client data to database by creating (if not already exist) a /UserDB/_login_.json file with personal information.
 Client data consist of:
@@ -23,7 +23,7 @@ Client data consist of:
   Fields login, secret question, answer for secret question and favourite colour is case insensitive.
   Passwords stores in the same Json file as char array and modified depending on login hashcode.
 
-###Change password
+***Change password
 To change password client should send login, password (as he remember it), personal data. In the case password and other data match at least 70%, perform changing data, in the other way return exception.
 Matching calculate for each field, dependings on fields value. Fields value stores in the file ????
 
