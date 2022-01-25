@@ -39,11 +39,7 @@ public class UserWriter {
         char[] hash = (login.hashCode() + codeString).toCharArray();
         char[] encrypted = new char[pwd.length];
         for (int i = 0; i < pwd.length; i++) {
-            if (i < hash.length) {
                 encrypted[i] = (char) (pwd[i] + hash[i]);
-            } else {
-                encrypted[i] = pwd[i];
-            }
         }
         return encrypted;
     }

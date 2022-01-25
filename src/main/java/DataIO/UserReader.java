@@ -79,11 +79,7 @@ public class UserReader {
         char[] hash = (login.hashCode()+codeString).toCharArray();
         char[] decrypted = new char[pwd.length];
         for (int i = 0; i < pwd.length; i++) {
-//            if (i < hash.length) {
                 decrypted[i] = (char) (pwd[i] - hash[i]);
-//            } else {
-//                decrypted[i] = pwd[i];
-//            }
         }
         return decrypted;
     }
