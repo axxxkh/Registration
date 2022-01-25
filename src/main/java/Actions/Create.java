@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class Create {
     public boolean create(String json) throws IOException {
-        User user = null;
+        User user;
 
         try {
             user = new User();

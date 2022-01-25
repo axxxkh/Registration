@@ -8,7 +8,7 @@ import java.io.IOException;
 * */
 public class PerformActions {
     public static void action(String act, String json) {
-        String log = new String();
+        String log;
         Actions actions = Actions.valueOf(act);
         try {
             switch (actions) {

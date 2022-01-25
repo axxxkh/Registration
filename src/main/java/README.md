@@ -3,11 +3,11 @@
   This is one of my homework, while i`m taking Java cources at itvdn.com
 
 ##Application features
-- [Add client registration data](###add-client-registration-data)
-- [Change password](*change-password)
-- [Change personal data](*change-personal-data)
-- [Return personal data](*return-personal-data)
-- [Logging](###logging)
+- [Add client registration data](#add-client-registration-data)
+- [Change password](#change-password)
+- [Change personal data](#change-personal-data)
+- [Return personal data](#return-personal-data)
+- [Logging](#logging)
 
 ###Add client registration data
 Project checks /Input folder in project folder. If client data that already in the database it return exception.

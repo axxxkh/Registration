@@ -28,19 +28,19 @@ public class Main {
         userWriter.write(readed);
         Registration.start();
 
-        try {
-            System.out.println("my exception");
-            throw new UserExist();
-        } catch (UserExist e) {
-            System.out.println(e);
-        }
-
-        try {
-            System.out.println("Wrong pass");
-            throw new WrongPassword();
-        } catch (WrongPassword e) {
-
-        }
+//        try {
+//            System.out.println("my exception");
+//            throw new UserExist();
+//        } catch (UserExist e) {
+//            System.out.println(e);
+//        }
+//
+//        try {
+//            System.out.println("Wrong pass");
+//            throw new WrongPassword();
+//        } catch (WrongPassword e) {
+//
+//        }
 
     }
 }

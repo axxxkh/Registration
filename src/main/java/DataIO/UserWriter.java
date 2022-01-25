@@ -36,7 +36,7 @@ public class UserWriter {
                 "Забравши деяких троянців,\n" +
                 "Осмалених, як гиря, ланців,\n" +
                 "П’ятами з Трої накивав.";
-        char[] hash = String.valueOf(login.hashCode() + codeString).toCharArray();
+        char[] hash = (login.hashCode() + codeString).toCharArray();
         char[] encrypted = new char[pwd.length];
         for (int i = 0; i < pwd.length; i++) {
             if (i < hash.length) {

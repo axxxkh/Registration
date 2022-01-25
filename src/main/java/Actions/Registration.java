@@ -22,6 +22,5 @@ public class Registration {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return;
     }
 }
