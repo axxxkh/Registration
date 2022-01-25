@@ -1,11 +1,15 @@
 package DataIO;
 
+import Actions.Exceprtions.UserExist;
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.time.LocalDate;
 
 public class User {
     private String login;
-    public char[] password;
+    private char[] password;
+    private String email;
     private LocalDate birthday;
     private String secretQuestion;
     private String secretAnswer;
@@ -24,6 +28,14 @@ public class User {
 
     public char[] getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(char[] password) {
@@ -62,10 +74,28 @@ public class User {
         this.favoriteColour = favoriteColour;
     }
 
-    public boolean isExist() {
-        if (new File("src/UserDB/" + this.login + ".txt").isFile()) {
-            return true;
+    private boolean isExist() {
+        return new File("src/UserDB/" + this.login + ".json").isFile();
+    }
+
+    public User create(String json) throws UserExist {
+        Gson parser = new Gson();
+        User user = parser.fromJson(json, User.class);
+
+        if (user.isExist()) {
+            throw new UserExist();
         }
-        return false;
+        return user;
+    }
+
+    public boolean checkRequiredFields(User user) {
+        return !user.getLogin().isEmpty() && user.getPassword().length != 0 && !user.getEmail().isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return "login - " + this.login + ". e-mail: " + this.email + ". Birthdate - " + this.getBirthday()
+                + ". Secret Question - " + this.secretQuestion + "Answer for secret question - " +
+                this.secretAnswer + ". Favorite colour - " + this.favoriteColour;
     }
 }

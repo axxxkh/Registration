@@ -2,9 +2,11 @@ package DataIO;
 
 import com.google.gson.Gson;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.time.LocalDate;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Locale;
 
 public class UserReader {
     public User read(String login) throws IOException {
@@ -37,7 +39,7 @@ public class UserReader {
 //        System.out.println(user.getSecretAnswer());
 //        System.out.println(user.getFavoriteColour());
 //        return user;
-        File file = new File("src/main/java/UserDB/" + login + ".json");
+        File file = new File("src/main/java/UserDB/" + login.toLowerCase(Locale.ROOT) + ".json");
         FileReader fileReader = null;
         try {
             fileReader = new FileReader(file);
@@ -64,17 +66,25 @@ public class UserReader {
     }
 
     private char[] pwdCoder(char[] pwd, String login) {
-        char[] hash = String.valueOf(login.hashCode()).toCharArray();
+        String codeString = "Еней був парубок моторний\n" +
+                "І хлопець хоть куди козак,\n" +
+                "Удавсь на всеє зле проворний,\n" +
+                "Завзятійший од всіх бурлак.\n" +
+                "Но греки, як спаливши Трою,\n" +
+                "Зробили з неї скирту гною,\n" +
+                "Він, взявши торбу, тягу дав;\n" +
+                "Забравши деяких троянців,\n" +
+                "Осмалених, як гиря, ланців,\n" +
+                "П’ятами з Трої накивав.";
+        char[] hash = String.valueOf(login.hashCode()+codeString).toCharArray();
         char[] decrypted = new char[pwd.length];
         for (int i = 0; i < pwd.length; i++) {
-            if (i < hash.length) {
+//            if (i < hash.length) {
                 decrypted[i] = (char) (pwd[i] - hash[i]);
-            } else {
-                decrypted[i] = pwd[i];
-            }
+//            } else {
+//                decrypted[i] = pwd[i];
+//            }
         }
-
         return decrypted;
     }
-
 }

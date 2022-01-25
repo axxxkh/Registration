@@ -1,5 +1,5 @@
 package Actions;
 
 public enum Actions {
-    REGISTRATE, CHANGEDATA, CHANGEPWD
+    CREATE, CHANGEDATA, SENDDATA, CHANGEPWD
 }
