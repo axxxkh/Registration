@@ -1,29 +1,30 @@
 package Actions;
 
+import DataIO.User;
+
 import java.io.IOException;
-/*
-* In input file we look for two lines. First line is action to do:
-* creating user, changing password, changing personal data or sending personal data.
-* then we perform required action with json string of user data.
-* */
+
 public class PerformActions {
-    public static void action(String act, String json) {
+    public static void action(String act, User user) {
         String log;
         Actions actions = Actions.valueOf(act);
         try {
             switch (actions) {
                 case CREATE:
                     Create create = new Create();
-                    create.create(json);
+                    create.create(user);
                     break;
                 case CHANGEDATA:
                     ChangeData changeData = new ChangeData();
+                    changeData.changeData(user);
                     break;
                 case CHANGEPWD:
                     ChangePassword changePassword = new ChangePassword();
+                    changePassword.changePWD(user);
                     break;
                 case SENDDATA:
                     SendData sendData = new SendData();
+                    sendData.send(user);
                     break;
             }
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package Actions.Exceprtions;
+package Exceptions;
 
 public class InvalidDataToRecover extends Exception{
     public InvalidDataToRecover() {

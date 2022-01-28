@@ -1,0 +1,23 @@
+{
+  "login": "John",
+  "password": [
+    "Ä",
+    "Ö",
+    "Ð",
+    "Ï",
+    "Ó",
+    "Ü",
+    "Í",
+    "ѿ",
+    "Ӕ",
+    "Ҟ"
+  ],
+  "birthday": {
+    "year": 2022,
+    "month": 1,
+    "day": 27
+  },
+  "secretQuestion": "question",
+  "secretAnswer": "sdfsfs",
+  "favoriteColour": "red"
+}

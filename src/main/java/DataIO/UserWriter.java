@@ -1,17 +1,22 @@
 package DataIO;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import javax.swing.text.DateFormatter;
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class UserWriter {
 
     public UserWriter() {
     }
 
-    public void write(User user) throws IOException {
+    public static void write(User user) throws IOException {
 
         FileWriter fileWriter = null;
         try {
@@ -19,13 +24,13 @@ public class UserWriter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         user.setPassword(pwdCoder(user.getPassword(), user.getLogin()));
         fileWriter.write(gson.toJson(user));
         fileWriter.close();
     }
 
-    private char[] pwdCoder(char[] pwd, String login) {
+    private static char[] pwdCoder(char[] pwd, String login) {
         String codeString = "Еней був парубок моторний\n" +
                 "І хлопець хоть куди козак,\n" +
                 "Удавсь на всеє зле проворний,\n" +
@@ -39,7 +44,7 @@ public class UserWriter {
         char[] hash = (login.hashCode() + codeString).toCharArray();
         char[] encrypted = new char[pwd.length];
         for (int i = 0; i < pwd.length; i++) {
-                encrypted[i] = (char) (pwd[i] + hash[i]);
+            encrypted[i] = (char) (pwd[i] + hash[i]);
         }
         return encrypted;
     }

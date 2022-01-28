@@ -1,0 +1,9 @@
+2022-01-28T17:06:19.189460 Exceptions.EmptyFields: You haven't fill all required fields
+2022-01-28T17:09:12.686066 Exceptions.EmptyFields: You haven't fill all required fields
+2022-01-28T17:09:46.167326 Exceptions.EmptyFields: You haven't fill all required fields
+2022-01-28T17:24:47.803310 User sam successfully created
+2022-01-28T17:25:08.410990 User sam successfully created
+2022-01-28T17:26:39.670025 User sam successfully created
+2022-01-28T17:28:17.889924 Exceptions.UserExist: User already exist
+2022-01-28T17:49:15.066708 User SAM successfully created
+2022-01-28T17:50:51.852361 Password for SAM was successfully changed

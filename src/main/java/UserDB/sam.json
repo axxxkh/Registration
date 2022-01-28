@@ -1,0 +1,21 @@
+{
+  "login": "sam",
+  "password": [
+    "¢",
+    "¨",
+    "",
+    "¨",
+    "§",
+    "ª",
+    "і"
+  ],
+  "email": "e-mail@ddd.com",
+  "birthday": {
+    "year": 2022,
+    "month": 1,
+    "day": 28
+  },
+  "secretQuestion": "question",
+  "secretAnswer": "answer",
+  "favoriteColour": "red"
+}

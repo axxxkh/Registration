@@ -1,0 +1,23 @@
+{
+  "login": "Monica",
+  "password": [
+    "¾",
+    "Õ",
+    "Ê",
+    "Î",
+    "Ó",
+    "Û",
+    "Õ",
+    "¡",
+    "Ð",
+    ""
+  ],
+  "birthday": {
+    "year": 2022,
+    "month": 1,
+    "day": 27
+  },
+  "secretQuestion": "question",
+  "secretAnswer": "sdfsfs",
+  "favoriteColour": "red"
+}

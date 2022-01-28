@@ -1,15 +1,16 @@
 package DataIO;
 
-import Actions.Exceprtions.UserExist;
 import com.google.gson.Gson;
-
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class User {
     private String login;
     private char[] password;
-    private String email;
+    private char[] NewPassword;
+    private String email = null;
     private LocalDate birthday;
     private String secretQuestion;
     private String secretAnswer;
@@ -19,11 +20,11 @@ public class User {
     }
 
     public String getLogin() {
-        return login;
+        return login.toLowerCase(Locale.ROOT);
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.login = login.toLowerCase(Locale.ROOT);
     }
 
     public char[] getPassword() {
@@ -31,11 +32,11 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return email.toLowerCase(Locale.ROOT);
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase(Locale.ROOT);
     }
 
     public void setPassword(char[] password) {
@@ -51,51 +52,102 @@ public class User {
     }
 
     public String getSecretQuestion() {
-        return secretQuestion;
+        return secretQuestion.toLowerCase(Locale.ROOT);
     }
 
     public void setSecretQuestion(String secretQuestion) {
-        this.secretQuestion = secretQuestion;
+        this.secretQuestion = secretQuestion.toLowerCase(Locale.ROOT);
     }
 
     public String getSecretAnswer() {
-        return secretAnswer;
+        return secretAnswer.toLowerCase(Locale.ROOT);
     }
 
     public void setSecretAnswer(String secretAnswer) {
-        this.secretAnswer = secretAnswer;
+        this.secretAnswer = secretAnswer.toLowerCase(Locale.ROOT);
     }
 
     public String getFavoriteColour() {
-        return favoriteColour;
+        return favoriteColour.toLowerCase(Locale.ROOT);
     }
 
     public void setFavoriteColour(String favoriteColour) {
-        this.favoriteColour = favoriteColour;
+        this.favoriteColour = favoriteColour.toLowerCase(Locale.ROOT);
     }
 
-    private boolean isExist() {
-        return new File("src/UserDB/" + this.login + ".json").isFile();
+    public boolean isExist() {
+        return new File("src/main/java/UserDB/"+ this.login + ".json").isFile();
     }
 
-    public User create(String json) throws UserExist {
+    public static User create(String json) {
         Gson parser = new Gson();
-        User user = parser.fromJson(json, User.class);
+        return parser.fromJson(json, User.class);
+    }
 
-        if (user.isExist()) {
-            throw new UserExist();
-        }
-        return user;
+    public boolean checkPassword(User user) {
+
+        System.out.println(this.password.equals(user.password));
+        return this.password.equals(user.password);
     }
 
     public boolean checkRequiredFields(User user) {
-        return !user.getLogin().isEmpty() && user.getPassword().length != 0 && !user.getEmail().isEmpty();
+        return user.login != null && user.password != null && user.email != null;
+    }
+
+    public boolean match(User user) {
+        final int PWD_VAL = 50;
+        final int EMAIL_VAL = 15;
+        final int BIRTH_VAL = 10;
+        final int SEC_Q_VAL = 10;
+        final int SEC_A_VAL = 10;
+        final int FAV_COL_VAL = 10;
+        final int FIELDS_QTY = 7;
+
+        int matchIndex = 0;
+        int fieldsFilled = 0;
+        for (int i = 0; i < (user.password.length > this.password.length ?
+                this.password.length : user.password.length); i++) {
+            if (this.password[i] == user.password[i]) {
+                matchIndex += PWD_VAL / user.password.length;
+            }
+        }
+        fieldsFilled += 1;
+
+        if (this.email != null && this.email.equals(user.email)) {
+            fieldsFilled += 1;
+            matchIndex += EMAIL_VAL;
+        }
+        if (this.birthday != null && this.birthday.equals(user.birthday)) {
+            fieldsFilled += 1;
+            matchIndex += BIRTH_VAL;
+
+        }
+        if (this.secretQuestion != null && this.secretQuestion.equals(user.secretQuestion)) {
+            fieldsFilled += 1;
+            matchIndex += SEC_Q_VAL;
+        }
+        if (this.secretAnswer != null & this.secretAnswer.equals(user.secretAnswer)) {
+            fieldsFilled += 1;
+            matchIndex += SEC_A_VAL;
+        }
+        if (this.favoriteColour != null && this.favoriteColour.equals(user.favoriteColour)) {
+            fieldsFilled += 1;
+            matchIndex += FAV_COL_VAL;
+        }
+
+        matchIndex = matchIndex * FIELDS_QTY / fieldsFilled;
+        return matchIndex > 70 ? true : false;
+    }
+
+    public void changePassword (User user) {
+        if (this.login.equals(user.login)&&this.password.equals(user.password)) {
+            this.password= user.NewPassword;
+        }
     }
 
     @Override
     public String toString() {
-        return "login - " + this.login + ". e-mail: " + this.email + ". Birthdate - " + this.getBirthday()
-                + ". Secret Question - " + this.secretQuestion + "Answer for secret question - " +
-                this.secretAnswer + ". Favorite colour - " + this.favoriteColour;
+        return "login - " + this.login + ". e-mail: " + this.email
+                + ". Birthdate - " + this.getBirthday();
     }
 }

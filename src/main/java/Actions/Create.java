@@ -1,38 +1,37 @@
 package Actions;
 
-import Actions.Exceprtions.EmptyFields;
-import Actions.Exceprtions.UserExist;
 import DataIO.LogWriter;
 import DataIO.User;
 import DataIO.UserWriter;
+import Exceptions.EmptyFields;
+import Exceptions.UserExist;
 
 import java.io.IOException;
 
 /*
-* try to create user, if he exists throw UserExist Exception,
-* in another way checking all necessary fields to add user to database (login,
-* password, email and date of birth.
-*/
+ * try to create user, if he exists throw UserExist Exception,
+ * in another way checking all necessary fields to add user to database (login,
+ * password, email and date of birth.
+ */
 
 public class Create {
-    public boolean create(String json) throws IOException {
-        User user;
+    public void create(User user) throws IOException {
 
         try {
-            user = new User();
-            user.create(json);
-            UserWriter writer = new UserWriter();
-            writer.write(user);
-            LogWriter.writeLog("User " + user.getLogin() + " successfully created");
+            if (user.isExist()) {
+                throw new UserExist();
+            }
             if (!user.checkRequiredFields(user)) {
                 throw new EmptyFields();
             }
+            UserWriter.write(user);
+            LogWriter.writeLog("User " + user.getLogin() + " successfully created");
         } catch (UserExist e) {
-            LogWriter.writeLog(e.toString());
-            // Check all required fields
+            LogWriter.writeLog(e.toString() + " user " + user.getLogin() + " wasn't add to the base");
+            System.out.println(e.toString());
         } catch (EmptyFields e) {
             LogWriter.writeLog(e.toString());
+            System.out.println(e.toString() + " user " + user.getLogin() + " wasn't add to the base");
         }
-        return true;
     }
 }
