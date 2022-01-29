@@ -4,9 +4,12 @@ import DataIO.LogWriter;
 import DataIO.User;
 import DataIO.UserReader;
 import Exceptions.UserExist;
-
 import java.io.FileWriter;
 import java.io.IOException;
+
+/*
+* sendin data about user to output folder to .txt file wih user name
+* */
 
 public class SendData {
     public void send(User user) throws IOException {
@@ -24,7 +27,7 @@ public class SendData {
                 fileWriter.close();
             }
         } catch (UserExist e) {
-            LogWriter.writeLog(e.toString() + " no data saved");
+            LogWriter.writeLog(e + " no data saved");
         }
     }
 }

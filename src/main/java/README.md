@@ -9,6 +9,10 @@
 - [Return personal data](#return-personal-data)
 - [Logging](#logging)
 
+## Additional info
+-User class(#user-class)
+-Input json(#input-json)
+
 ### Add client registration data
 Project checks /Input folder in project folder. If client data that already in the database it return exception.
 In another case if all data is valid(only favourite colour field is optional), it add client data to database by creating (if not already exist) a /UserDB/_login_.json file with personal information.
@@ -37,3 +41,39 @@ To achieve personal data, client should send login and password. If login and pa
 Any action (changing password, personal data, registration, sending data with incorrect password, sending invalid data) would be logged in the /logs/_LocalDate.now()_log.txt.
 Log file creates for each day, and every log information appends to it.
 
+### User class
+User class have only private fields, the common structure is:
+>public class User {
+private String login;
+private char[] password;
+private char[] NewPassword;
+private String email = null;
+private LocalDate birthday;
+private String secretQuestion;
+private String secretAnswer;
+private String favoriteColour;
+}
+
+### Input json
+Input json consist of two parts, first is action what had to be done, and second json information about user
+Common structure is:
+
+>SENDDATA
+{
+"login": "login",
+"password": [
+"1",
+"2",
+"3",
+"4"
+],
+"email": "mail",
+"birthday": {
+"year": 2022,
+"month": 1,
+"day": 29
+},
+"secretQuestion": "another question",
+"secretAnswer": "answer",
+"favoriteColour": "red"
+}

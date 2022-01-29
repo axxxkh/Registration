@@ -6,10 +6,11 @@ import DataIO.UserReader;
 import DataIO.UserWriter;
 import Exceptions.InvalidDataToRecover;
 import Exceptions.UserExist;
-
 import java.io.IOException;
 import java.util.Locale;
-
+/*
+* perform action to change password
+*/
 public class ChangePassword {
     public void changePWD(User user) throws IOException {
         User userFromDB = UserReader.read(user.getLogin());
@@ -24,9 +25,9 @@ public class ChangePassword {
             LogWriter.writeLog("Password for "
                     + user.getLogin().toUpperCase(Locale.ROOT) + " was successfully changed");
         } catch (UserExist userExist) {
-            LogWriter.writeLog(userExist.toString() + " password wasn't changed");
+            LogWriter.writeLog(userExist + " password wasn't changed");
         } catch (InvalidDataToRecover e) {
-            LogWriter.writeLog(e.toString() + "Password for "
+            LogWriter.writeLog(e + "Password for "
                     + user.getLogin().toUpperCase(Locale.ROOT) + "wasn't changed");
         }
     }

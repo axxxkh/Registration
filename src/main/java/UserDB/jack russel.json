@@ -1,11 +1,10 @@
-SENDDATA
 {
   "login": "jack russel",
   "password": [
-    "1",
-    "2",
-    "3",
-    "4"
+    "b",
+    "g",
+    "j",
+    "l"
   ],
   "email": "aaaa@fds.com",
   "birthday": {
@@ -13,7 +12,7 @@ SENDDATA
     "month": 1,
     "day": 29
   },
-  "secretQuestion": "another question",
+  "secretQuestion": "question",
   "secretAnswer": "answer",
   "favoriteColour": "red"
 }

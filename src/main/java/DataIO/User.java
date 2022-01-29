@@ -6,11 +6,21 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
 
+/*
+ * User class has all private fields, and only one getter for login
+ * Also it has next methods:
+ * - isExist - to check if is there user with the same login at database, return true or false
+ * - create - return new user from json string
+ * - check password - check password matching, return true or false
+ * - checkRequiredField - check if all of necessary fields is filled
+ * - match - used to check all information when user forget password. Returns true if matching over 70%
+ * -  */
+
 public class User {
     private String login;
     private char[] password;
     private char[] NewPassword;
-    private String email = null;
+    private final String email = null;
     private LocalDate birthday;
     private String secretQuestion;
     private String secretAnswer;
@@ -23,60 +33,8 @@ public class User {
         return login.toLowerCase(Locale.ROOT);
     }
 
-    public void setLogin(String login) {
-        this.login = login.toLowerCase(Locale.ROOT);
-    }
-
-    public char[] getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email.toLowerCase(Locale.ROOT);
-    }
-
-    public void setEmail(String email) {
-        this.email = email.toLowerCase(Locale.ROOT);
-    }
-
-    public void setPassword(char[] password) {
-        this.password = password;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getSecretQuestion() {
-        return secretQuestion.toLowerCase(Locale.ROOT);
-    }
-
-    public void setSecretQuestion(String secretQuestion) {
-        this.secretQuestion = secretQuestion.toLowerCase(Locale.ROOT);
-    }
-
-    public String getSecretAnswer() {
-        return secretAnswer.toLowerCase(Locale.ROOT);
-    }
-
-    public void setSecretAnswer(String secretAnswer) {
-        this.secretAnswer = secretAnswer.toLowerCase(Locale.ROOT);
-    }
-
-    public String getFavoriteColour() {
-        return favoriteColour.toLowerCase(Locale.ROOT);
-    }
-
-    public void setFavoriteColour(String favoriteColour) {
-        this.favoriteColour = favoriteColour.toLowerCase(Locale.ROOT);
-    }
-
     public boolean isExist() {
-        return new File("src/main/java/UserDB/"+ this.login + ".json").isFile();
+        return new File("src/main/java/UserDB/" + this.login.toLowerCase(Locale.ROOT) + ".json").isFile();
     }
 
     public static User create(String json) {
@@ -85,9 +43,7 @@ public class User {
     }
 
     public boolean checkPassword(User user) {
-
-        System.out.println(this.password.equals(user.password));
-        return this.password.equals(user.password);
+        return Arrays.equals(this.password, user.password);
     }
 
     public boolean checkRequiredFields(User user) {
@@ -136,18 +92,37 @@ public class User {
         }
 
         matchIndex = matchIndex * FIELDS_QTY / fieldsFilled;
-        return matchIndex > 70 ? true : false;
+        return matchIndex > 70;
     }
 
-    public void changePassword (User user) {
-        if (this.login.equals(user.login)&&this.password.equals(user.password)) {
-            this.password= user.NewPassword;
+    public void changePassword(User user) {
+        if (this.login.equals(user.login) && Arrays.equals(this.password, user.password)) {
+            this.password = user.NewPassword;
         }
     }
 
     @Override
     public String toString() {
         return "login - " + this.login + ". e-mail: " + this.email
-                + ". Birthdate - " + this.getBirthday();
+                + ". Birthdate - " + this.birthday;
+    }
+
+    public void encrypt() {
+        String codeString = "Еней був парубок моторний\n" +
+                "І хлопець хоть куди козак,\n" +
+                "Удавсь на всеє зле проворний,\n" +
+                "Завзятійший од всіх бурлак.\n" +
+                "Но греки, як спаливши Трою,\n" +
+                "Зробили з неї скирту гною,\n" +
+                "Він, взявши торбу, тягу дав;\n" +
+                "Забравши деяких троянців,\n" +
+                "Осмалених, як гиря, ланців,\n" +
+                "П’ятами з Трої накивав.";
+        char[] hash = (this.login.hashCode() + codeString).toCharArray();
+        char[] encrypted = new char[password.length];
+        for (int i = 0; i < password.length; i++) {
+            encrypted[i] = (char) (password[i] + hash[i]);
+        }
+        this.password=encrypted;
     }
 }

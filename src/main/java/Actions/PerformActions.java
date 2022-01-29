@@ -1,8 +1,13 @@
 package Actions;
 
+import DataIO.LogWriter;
 import DataIO.User;
 
 import java.io.IOException;
+
+/*
+ * Depends on actions that listed in Actions enum, we start class that perform action
+ * or write to log file information about wrong action */
 
 public class PerformActions {
     public static void action(String act, User user) {
@@ -17,6 +22,7 @@ public class PerformActions {
                 case CHANGEDATA:
                     ChangeData changeData = new ChangeData();
                     changeData.changeData(user);
+                    System.out.println("change data");
                     break;
                 case CHANGEPWD:
                     ChangePassword changePassword = new ChangePassword();
@@ -26,6 +32,8 @@ public class PerformActions {
                     SendData sendData = new SendData();
                     sendData.send(user);
                     break;
+                default:
+                    LogWriter.writeLog("Wrong action");
             }
         } catch (IOException e) {
             e.printStackTrace();

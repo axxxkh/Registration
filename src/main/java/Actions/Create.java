@@ -27,11 +27,11 @@ public class Create {
             UserWriter.write(user);
             LogWriter.writeLog("User " + user.getLogin() + " successfully created");
         } catch (UserExist e) {
-            LogWriter.writeLog(e.toString() + " user " + user.getLogin() + " wasn't add to the base");
-            System.out.println(e.toString());
+            LogWriter.writeLog(e + " user " + user.getLogin() + " wasn't add to the base");
+            System.out.println(e);
         } catch (EmptyFields e) {
             LogWriter.writeLog(e.toString());
-            System.out.println(e.toString() + " user " + user.getLogin() + " wasn't add to the base");
+            System.out.println(e + " user " + user.getLogin() + " wasn't add to the base");
         }
     }
 }

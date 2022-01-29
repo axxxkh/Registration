@@ -1,0 +1,3 @@
+2022-01-29T16:35:29.215312 Exceptions.WrongPassword: Wrong Password
+2022-01-29T16:36:38.635891 User jack russel successfully created
+2022-01-29T16:39:57.116260 All personal data about jack russel successfully has been written to file /output/jack russel.txt
