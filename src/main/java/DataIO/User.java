@@ -61,8 +61,7 @@ public class User {
 
         int matchIndex = 0;
         int fieldsFilled = 0;
-        for (int i = 0; i < (user.password.length > this.password.length ?
-                this.password.length : user.password.length); i++) {
+        for (int i = 0; i < Math.min(user.password.length,this.password.length); i++) {
             if (this.password[i] == user.password[i]) {
                 matchIndex += PWD_VAL / user.password.length;
             }
@@ -107,7 +106,8 @@ public class User {
                 + ". Birthdate - " + this.birthday;
     }
 
-    public void encrypt() {
+    public void encrypt(boolean encrypt) {
+        int encryptDecryptFlag = encrypt?1:-1;
         String codeString = "Еней був парубок моторний\n" +
                 "І хлопець хоть куди козак,\n" +
                 "Удавсь на всеє зле проворний,\n" +
@@ -121,7 +121,7 @@ public class User {
         char[] hash = (this.login.hashCode() + codeString).toCharArray();
         char[] encrypted = new char[password.length];
         for (int i = 0; i < password.length; i++) {
-            encrypted[i] = (char) (password[i] + hash[i]);
+            encrypted[i] = (char) (password[i] + encryptDecryptFlag*hash[i]);
         }
         this.password=encrypted;
     }

@@ -23,7 +23,7 @@ public class UserWriter {
             e.printStackTrace();
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        user.encrypt();
+        user.encrypt(true);
         fileWriter.write(gson.toJson(user));
         fileWriter.close();
     }
